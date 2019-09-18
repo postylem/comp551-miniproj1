@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-import model
+from model import *
 
 if __name__ == "__main__":
 
@@ -20,5 +20,4 @@ if __name__ == "__main__":
         weights = update_weights(weights, X, Y, learning_rate)
         print('epoch {}'.format(i))
         for j in range(2):
-            print('prob(Y={}) ={}'.format(j,predicted_probability(weights,Xobs[j])))
-    print(weights)
+            print('predicted Prob(Y=1 | X[{}]) = {}'.format(j,predicted_probability(weights,X[j])))
