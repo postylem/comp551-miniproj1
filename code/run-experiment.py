@@ -1,23 +1,32 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 from model import *
+from LDA import *
 
 if __name__ == "__main__":
 
-    # some dummy data
-    X = np.array([[1,2,3],
-                  [1,4,2]])
-    Y = np.array([1,0])
+    data = np.array(
+        [[2,0,2,0],
+         [4,2,3,1],
+         [9,1,2,0],
+         [9,1,2,0],
+         [1,5,5,1],
+         [3,1,0,1],
+         [3,1,0,1],
+         [1,0,1,0]]
+    )
 
-    # randomized start weights
-    weights = np.random.rand(3)
-    # and a fixed learning rate
-    learning_rate = 1e-1
+    # # uncomment for testing logistic regression:
+    # X = data[:,:-1]
+    # y = np.transpose(data[:,-1:])
+    # W_0 = np.zeros_like(X[0])
+    # lr = 0.2
+    # epochs = 100
+    # stop_criterion = 0
+    #
+    # logistic_regression(W_0, X, y, lr, epochs, stop_criterion)
 
-    #see how it does over 20 epochs
-    for i in range(20):
-        weights = update_weights(weights, X, Y, learning_rate)
-        print('epoch {}'.format(i))
-        for j in range(2):
-            print('predicted Prob(Y=1 | X[{}]) = {}'.format(j,predicted_probability(weights,X[j])))
+
+    # testing LDA:
+    datapoint = np.zeros_like(data[:,:-1][0])
+    print(predict_log_odds(data , datapoint))
