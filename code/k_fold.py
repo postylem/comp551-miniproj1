@@ -10,13 +10,12 @@ def k_fold(dataframe, k): #takes in a dataframes, returns list of k dataframes
     quotient = int(lines / k)
     rem = lines % k
 
-    folds = []
+    folds = [] #contains k distinct dataframes from the training set
     next_row = 0
 
-    print(quotient)
 
     for i in range(k):
-
+        
         if i < rem:
             quotient +=1
         
@@ -27,12 +26,21 @@ def k_fold(dataframe, k): #takes in a dataframes, returns list of k dataframes
 
         if i < rem:
             quotient -=1
+    
 
-    #print(folds)
+    #k_folds contains the cross validation sets in form (k-1) dataframes for training, 1 for test,  (k-1) dataframes for training, 1 for test, etc.
+    folds1 = folds
 
-    return folds
+    k_fold = []
 
-        
+    for i in range(k):
+        df = folds[i]
+        for j in range(1,k-1):
+            df = df.append(folds[(j+i)%k], ignore_index = True)
+        k_fold.append(df)
+        k_fold.append(folds[(i+k-1)%k])
+
+    return k_fold 
 
 def main():
 
@@ -43,5 +51,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
