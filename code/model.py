@@ -26,13 +26,12 @@ def update_weights(weights, observations, true_labels, learning_rate):
 
 def logistic_regression(weights, observations, true_labels, learning_rate,num_iterations, stop_criterion):
     #function of current weights (vector) and observations (array of vectors), true_labels (vector)
-
+    #runs update_weight function num_iterations times, and stops if stop_criterion is reached
     last_weights = np.zeros_like(weights)
     for i in range(num_iterations):
-        new_weights = update_weights(weights, observations, true_labels, learning_rate)
-
+        weights = update_weights(weights, observations, true_labels, learning_rate)
         if  np.amax( np.absolute( np.substract(new_weights,last_weights))) < stop_criterion:
             print("Stop criterion reached:", np.substract(new_weights,last_weights))
             return weights
-        last_weights = new_weights
+        last_weights = weights
     return weights
