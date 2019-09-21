@@ -29,8 +29,6 @@ def k_fold(dataframe, k): #takes in a dataframes, returns list of k dataframes
     
 
     #k_folds contains the cross validation sets in form (k-1) dataframes for training, 1 for test,  (k-1) dataframes for training, 1 for test, etc.
-    folds1 = folds
-
     k_fold = []
 
     for i in range(k):
