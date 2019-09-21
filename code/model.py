@@ -3,10 +3,10 @@ import numpy as np
 
 # here's a pass at implementing the logistic regression model
 
-def standardize(vector_or_matrix):
-    min_ = np.amin(vector_or_matrix)
-    delta = (np.amax(vector_or_matrix) - min_)
-    return (vector_or_matrix - min_)/delta
+def standardize(vector):
+    min_ = np.amin(vector)
+    delta = (np.amax(vector) - min_)
+    return (vector - min_)/delta
 
 def sigma(a):
     # the logistic squishing function sigma: R->[0,1]
