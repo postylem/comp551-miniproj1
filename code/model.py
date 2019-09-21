@@ -35,8 +35,8 @@ def logistic_regression(weights, observations, true_labels, learning_rate,num_it
     last_weights = np.zeros_like(weights)
     for i in range(num_iterations):
         weights = update_weights(weights, observations, true_labels, learning_rate)
-        if  np.amax( np.absolute( np.substract(weights,last_weights))) < stop_criterion: #if max(|weights-last_weights|)<stop_criterion
-            print("Stop criterion reached:", np.substract(weights,last_weights))
+        if  np.amax( np.absolute( np.subtract(weights,last_weights))) < stop_criterion: #if max(|weights-last_weights|)<stop_criterion
+            print("Stop criterion reached:", np.subtract(weights,last_weights))
             return weights
         last_weights = weights
     return weights
