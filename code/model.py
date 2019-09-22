@@ -83,3 +83,14 @@ def predict(weights, csv_file_predictors, list_predictors):
         else:
             predictions.append(0)
     return predictions
+
+def accuracy(predictions, csv_file_real_y, target):
+    real_y = init_y(csv_file_real_y, target)
+    count = 0
+    for i in range(len(real_y)):
+        if real_y[i] == predictions[i]:
+            count+=1
+        else:
+            continue
+    accuracy = float(count)/len(real_y)
+    return accuracy
