@@ -32,6 +32,13 @@ def init_weights(matrix):
     #creates the vector of initial weights
     return [1] * len(matrix[0])
 
+def init_y(source, feature):
+    df = pd.read_csv(source, delimiter = ';')
+    y = np.array(df[feature])
+    y[y<=5] = 0
+    y[y>5] = 1
+    return y
+
 def sigma(a):
     # the logistic squishing function sigma: R->[0,1]
     return 1/(1 + np.exp(-a))
