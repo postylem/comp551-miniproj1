@@ -69,9 +69,8 @@ def fit(weights, observations, true_labels, learning_rate,num_iterations, stop_c
         last_weights = weights
     return weights
 
-def predict(weights, csv_file_predictors, list_predictors):
+def predict(weights, df, list_predictors):
     #function of weights resulting from fit() and .csv file of features to be used as prediction
-    df = pd.read_csv(csv_file_predictors, delimiter = ';')
     predictors = init_x(df,list_predictors)
     predictions = []
     for i in range(len(predictors)):

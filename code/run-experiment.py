@@ -34,7 +34,8 @@ if __name__ == "__main__":
     weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
     print(weights)
 
-    y = predict(weights,"test.csv", features)
+    df = pd.read_csv("test.csv", delimiter = ';')
+    y = predict(weights,df, features)
     print(y)
 
     acc = accuracy(y, "test.csv", 'quality')
