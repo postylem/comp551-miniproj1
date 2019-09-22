@@ -42,4 +42,4 @@ if __name__ == "__main__":
     predicted_odds = np.empty([np.size(data,0),1])
     for i in range(np.size(data,0)):
             predicted_odds[i] = predict_log_odds(train_data , data[i][:-1])
-    print(predicted_odds) 
+    print(predicted_odds)
