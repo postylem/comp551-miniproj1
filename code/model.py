@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 
 
 # here's a pass at implementing the logistic regression model
