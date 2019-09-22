@@ -24,9 +24,10 @@ if __name__ == "__main__":
     # stop_criterion = 0
 
     features = ['pH', 'volatile acidity', 'citric acid', 'sulphates', 'alcohol']
-    X = init_x("training.csv", features)
+    df = pd.read_csv("training.csv", delimiter = ';')
+    X = init_x(df, features)
     W_0 = init_weights(X)
-    Y = init_y("training.csv", 'quality')
+    Y = init_y(df, 'quality')
     learning_rate = 0.02
     epochs = 700
     stop_criterion = 0.1

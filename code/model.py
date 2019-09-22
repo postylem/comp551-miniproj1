@@ -9,10 +9,9 @@ def standardize(vector):
     delta = (np.amax(vector) - min_)
     return (vector - min_)/delta
 
-def init_x(source,features):
+def init_x(df,features):
     #creates the matrix of training data from .csv file
     #and a list of column names for features e.g. ['pH','alcohol'] and a column of 1`s
-    df = pd.read_csv(source, delimiter = ';')
     data = []
     for i in features:
         feature = standardize(np.array(df[i])) #standardized feature
@@ -31,8 +30,7 @@ def init_weights(matrix):
     #creates the vector of initial weights
     return [1] * len(matrix[0])
 
-def init_y(source, feature):
-    df = pd.read_csv(source, delimiter = ';')
+def init_y(df, feature):
     y = np.array(df[feature])
     y[y<=5] = 0
     y[y>5] = 1
@@ -73,7 +71,8 @@ def fit(weights, observations, true_labels, learning_rate,num_iterations, stop_c
 
 def predict(weights, csv_file_predictors, list_predictors):
     #function of weights resulting from fit() and .csv file of features to be used as prediction
-    predictors = init_x(csv_file_predictors,list_predictors)
+    df = pd.read_csv(csv_file_predictors, delimiter = ';')
+    predictors = init_x(df,list_predictors)
     predictions = []
     for i in range(len(predictors)):
         a = np.dot(predictors[i], weights) #compute a
@@ -85,7 +84,8 @@ def predict(weights, csv_file_predictors, list_predictors):
     return predictions
 
 def accuracy(predictions, csv_file_real_y, target):
-    real_y = init_y(csv_file_real_y, target)
+    df = pd.read_csv(csv_file_real_y, delimiter = ';')
+    real_y = init_y(df, target)
     count = 0
     for i in range(len(real_y)):
         if real_y[i] == predictions[i]:
