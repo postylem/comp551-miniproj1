@@ -23,7 +23,7 @@ def predict_log_odds(train_data, test_datapoint):
     mean_0 = np.mean(observations_labeled_0,0)
     mean_1 = np.mean(observations_labeled_1,0)
 
-    # make the covariance matrix (note we want the covariance matrix over the _rows_ of train_data, hence the transpose)
+    # make the covariance matrix (note we want the covariance matrix over the _columns_ of train_data, hence the transpose)
     cov_matrix = np.cov(np.transpose(train_data[:,:-1]))
     inv_cov = np.linalg.inv(cov_matrix)
 
