@@ -4,9 +4,33 @@ import numpy as np
 # here's a pass at implementing the logistic regression model
 
 def standardize(vector):
+    #takes in a vector of data from one feature, standardizes the data
     min_ = np.amin(vector)
     delta = (np.amax(vector) - min_)
     return (vector - min_)/delta
+
+def init_x(source,features):
+    #creates the matrix of training data from .csv file
+    #and a list of column names for features e.g. ['pH','alcohol'] and a column of 1`s
+    df = pd.read_csv(source, delimiter = ';')
+    data = []
+    for i in features:
+        feature = standardize(np.array(df[i])) #standardized feature
+        data.append(feature)
+    matrix = data[len(features)-1]
+    if len(features)-1 == 0:
+        matrix = np.column_stack(([1]*len(data[0]),matrix)) #add column of 1
+    else:
+        for i in reversed(range( len(features)-1 )):
+            print(i)
+            matrix = np.column_stack((data[i],matrix)) #add i-th feature
+            if i == 0:
+                matrix = np.column_stack(([1]*len(data[0]),matrix)) #add column of 1
+    return matrix
+
+def init_weights(matrix):
+    #creates the vector of initial weights
+    return [1] * len(matrix[0])
 
 def sigma(a):
     # the logistic squishing function sigma: R->[0,1]
