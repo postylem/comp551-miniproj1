@@ -4,7 +4,7 @@ plt.style.use('seaborn-whitegrid')
 import pandas as pd
 import sys
 
-def k_fold(dataframe, k): #takes in a dataframes, returns list of k dataframes
+def k_fold(dataframe, k): #takes in a dataframe, returns list of k dataframes
     
     lines = dataframe.shape[0]
     quotient = int(lines / k)

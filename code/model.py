@@ -93,4 +93,4 @@ def accuracy(predictions, csv_file_real_y, target):
         else:
             continue
     accuracy = float(count)/len(real_y)
-    return accuracy
+    return accuracyimport numpy as np
