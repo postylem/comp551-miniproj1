@@ -1,23 +1,45 @@
 import numpy as np
-import matplotlib.pyplot as plt
 
 from model import *
+from LDA import *
 
 if __name__ == "__main__":
 
-    # some dummy data
-    X = np.array([[1,2,3],
-                  [1,4,2]])
-    Y = np.array([1,0])
+    train_data = np.array(
+        [[2,0,2,0],
+         [4,2,3,1],
+         [9,1,2,0],
+         [9,1,2,0],
+         [1,5,5,1],
+         [3,1,0,1],
+         [3,1,0,1],
+         [1,0,1,0]]
+    )
 
-    # randomized start weights
-    weights = np.random.rand(3)
-    # and a fixed learning rate
-    learning_rate = 1e-1
+    # # uncomment for testing logistic regression:
+    # X = train_data[:,:-1]
+    # y = (train_data[:,-1:]).flatten()
+    # W_0 = np.zeros_like(X[0])
+    # learning_rate = 0.2
+    # epochs = 100
+    # stop_criterion = 0
+    #
+    # logistic_regression(W_0, X, y, learning_rate, epochs, stop_criterion)
 
-    #see how it does over 20 epochs
-    for i in range(20):
-        weights = update_weights(weights, X, Y, learning_rate)
-        print('epoch {}'.format(i))
-        for j in range(2):
-            print('predicted Prob(Y=1 | X[{}]) = {}'.format(j,predicted_probability(weights,X[j])))
+
+    # testing LDA:
+    data = np.array(
+        [[2,0,0,1],
+         [2,0,4,1],
+         [4,2,3,0],
+         [9,1,2,0],
+         [9,1,4,0],
+         [9,1,2,0],
+         [2,1,1,0]]
+    )
+
+
+    predicted_odds = np.empty([np.size(data,0),1])
+    for i in range(np.size(data,0)):
+            predicted_odds[i] = predict_log_odds(train_data , data[i][:-1])
+    print(predicted_odds) 
