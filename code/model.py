@@ -60,7 +60,7 @@ def update_weights(weights, observations, true_labels, learning_rate):
         return new_weights
     else: print("Error. Size mismatch.")
 
-def logistic_regression(weights, observations, true_labels, learning_rate,num_iterations, stop_criterion):
+def fit(weights, observations, true_labels, learning_rate,num_iterations, stop_criterion):
     #function of current weights (vector) and observations (array of vectors), true_labels (vector)
     #runs update_weight function num_iterations times, and stops if stop_criterion is reached
     last_weights = np.zeros_like(weights)
@@ -71,3 +71,16 @@ def logistic_regression(weights, observations, true_labels, learning_rate,num_it
             return weights
         last_weights = weights
     return weights
+
+def predict(weights, csv_file_predictors, list_predictors):
+    #function of weights resulting from fit() and .csv file of features to be used as prediction
+    predictors = init_x(csv_file_predictors,list_predictors)
+    predictions = []
+    for i in range(len(predictors)):
+        a = np.dot(predictors[i], weights) #compute a
+        pred_prob = sigma(a) #compute probability
+        if pred_prob > 0.5:
+            predictions.append(1)
+        else:
+            predictions.append(0)
+    return predictions
