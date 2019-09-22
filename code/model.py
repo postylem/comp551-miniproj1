@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 
-
 # here's a pass at implementing the logistic regression model
 
 def standardize(vector):
@@ -23,7 +22,6 @@ def init_x(source,features):
         matrix = np.column_stack(([1]*len(data[0]),matrix)) #add column of 1
     else:
         for i in reversed(range( len(features)-1 )):
-            print(i)
             matrix = np.column_stack((data[i],matrix)) #add i-th feature
             if i == 0:
                 matrix = np.column_stack(([1]*len(data[0]),matrix)) #add column of 1
@@ -51,7 +49,7 @@ def predicted_probability(w, x):
 def update_weights(weights, observations, true_labels, learning_rate):
     # function of current weights (vector) and observations (array of vectors),
     # updates by one step of size learning_rate based on grad of cross entropy loss
-    if (np.size(observations,0) == true_labels.size and np.size(observations,1) == weights.size):
+    if len(observations) == len(true_labels) and len(observations[0]) == len(weights):
         number_of_datapoints = np.size(true_labels)
         loss_vector = np.zeros_like(weights)
         for i in range(number_of_datapoints):
