@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from k_fold import *
 
 # here's a pass at implementing the logistic regression model
 
@@ -59,7 +60,8 @@ def update_weights(weights, observations, true_labels, learning_rate):
         return new_weights
     else: print("Error. Size mismatch.")
 
-def fit(weights, observations, true_labels, learning_rate,num_iterations, stop_criterion):
+    
+def logistic_regression(weights, observations, true_labels, learning_rate,num_iterations, stop_criterion):
     #function of current weights (vector) and observations (array of vectors), true_labels (vector)
     #runs update_weight function num_iterations times, and stops if stop_criterion is reached
     last_weights = np.zeros_like(weights)
@@ -70,6 +72,19 @@ def fit(weights, observations, true_labels, learning_rate,num_iterations, stop_c
             return weights
         last_weights = weights
     return weights
+
+def fit(training_set, learning_rate, epochs, stop_criterion,k):
+    df = pd.read_csv(training_set, delimiter = ';')
+    k_folds = k_fold(df, k) #list of dataframes for k_fold cross_validation
+
+    for i in range(0,k,2):
+        print(i)
+
+
+
+    # logistic_regression(weights, observations, true_labels, learning_rate,num_iterations, stop_criterion)
+    return
+
 
 def predict(weights, csv_file_predictors, list_predictors):
     #function of weights resulting from fit() and .csv file of features to be used as prediction

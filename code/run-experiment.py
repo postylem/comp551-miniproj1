@@ -1,5 +1,4 @@
 import numpy as np
-
 from model import *
 #from LDA import *
 
@@ -29,11 +28,16 @@ if __name__ == "__main__":
     W_0 = init_weights(X)
     Y = init_y("training.csv", 'quality')
     learning_rate = 0.02
-    epochs = 100
-    stop_criterion = 0.02
+    epochs = 700
+    stop_criterion = 0.1
     weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
     print(weights)
 
+    y = predict(weights,"test.csv", features)
+    print(y)
+
+    acc = accuracy(y, "test.csv", 'quality')
+    print(acc)
 
     # testing LDA:
     data = np.array(
