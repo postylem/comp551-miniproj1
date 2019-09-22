@@ -1,45 +1,54 @@
 import numpy as np
 from model import *
+from k_fold import *
 #from LDA import *
 
 if __name__ == "__main__":
 
-    # train_data = np.array(
-    #     [[2,0,2,0],
-    #      [4,2,3,1],
-    #      [9,1,2,0],
-    #      [9,1,2,0],
-    #      [1,5,5,1],
-    #      [3,1,0,1],
-    #      [3,1,0,1],
-    #      [1,0,1,0]]
-    # )
-
-    # # uncomment for testing logistic regression:
-    # X = train_data[:,:-1]
-    # y = (train_data[:,-1:]).flatten()
-    # W_0 = np.zeros_like(X[0])
-    # learning_rate = 0.2
-    # epochs = 100
-    # stop_criterion = 0
-
-    features = ['pH', 'volatile acidity', 'citric acid', 'sulphates', 'alcohol']
+    k=5
     df = pd.read_csv("training.csv", delimiter = ';')
-    X = init_x(df, features)
-    W_0 = init_weights(X)
-    Y = init_y(df, 'quality')
+    k_folds = k_fold(df, k)
+    features = ['pH', 'volatile acidity', 'citric acid', 'sulphates', 'alcohol']
     learning_rate = 0.02
     epochs = 700
     stop_criterion = 0.1
-    weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
-    print(weights)
 
-    df = pd.read_csv("test.csv", delimiter = ';')
-    y = predict(weights,df, features)
-    print(y)
+    weight_list = []
+    prediction_list = []
+    error_list = []
 
-    acc = accuracy(y, "test.csv", 'quality')
-    print(acc)
+    for i in range(0,2*k,2):
+        dataf = k_folds[i]
+        X = init_x(dataf, features)
+        W_0 = init_weights(X)
+        Y = init_y(dataf,'quality')
+        weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
+        weight_list.append(weights)
+
+        dataf = k_folds[i+1]
+        y = predict(weights,dataf, features)
+        prediction_list.append(y)
+
+        err = error(y, k_folds[i+1], 'quality')
+        error_list.append(err)
+    
+    print(error_list)
+    print(np.mean(error_list))
+
+
+    
+    
+    
+    
+    
+    
+    
+    # df = pd.read_csv("test.csv", delimiter = ';')
+    # y = predict(weights,df, features)
+    # print(y)
+
+    # acc = accuracy(y, "test.csv", 'quality')
+    # print(acc)
 
     # testing LDA:
     data = np.array(

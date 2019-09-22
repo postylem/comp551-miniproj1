@@ -82,6 +82,17 @@ def predict(weights, df, list_predictors):
             predictions.append(0)
     return predictions
 
+def error(predictions, dataframe, target):
+    real_y = init_y(dataframe, target)
+    count = 0
+    for i in range(len(real_y)):
+        if real_y[i] != predictions[i]:
+            count+=1
+        else:
+            continue
+    error = float(count)/len(real_y)
+    return error
+
 def accuracy(predictions, csv_file_real_y, target):
     df = pd.read_csv(csv_file_real_y, delimiter = ';')
     real_y = init_y(df, target)
