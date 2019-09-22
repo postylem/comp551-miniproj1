@@ -3,7 +3,7 @@ import pandas as pd
 
 # here's a pass at implementing the logistic regression model
 class log_reg:
- #initialize the attributes given when creating a class for LDA
+ #initialize the attributes given when creating a class for logistic regression
     def __init__(self, prep_training_set, learning_rate, epochs, stop_criterion):
         self.prep_training_set = prep_training_set
         self.learning_rate = learning_rate 
