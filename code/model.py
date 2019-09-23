@@ -32,8 +32,12 @@ def init_weights(matrix):
 
 def init_y(df, feature):
     y = np.array(df[feature])
-    y[y<=5] = 0
-    y[y>5] = 1
+    if feature == 'quality':
+        y[y<=5] = 0
+        y[y>5] = 1
+    if feature == 'Class':
+        y[y==2] = 0
+        y[y==4] = 1
     return y
 
 def sigma(a):
@@ -94,7 +98,7 @@ def error(predictions, dataframe, target):
     return error
 
 def accuracy(predictions, csv_file_real_y, target):
-    df = pd.read_csv(csv_file_real_y, delimiter = ';')
+    df = pd.read_csv(csv_file_real_y)
     real_y = init_y(df, target)
     count = 0
     for i in range(len(real_y)):
