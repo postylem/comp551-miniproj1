@@ -5,6 +5,16 @@ from k_fold import *
 
 if __name__ == "__main__":
 
+    #
+    #
+    #
+    #
+    # RUNNING LOGISTIC REGRESSION ON WINE DATASET
+    #
+    #
+    #
+    #
+
     k=5
 
     print("running logistic regression on wine data:")
@@ -55,6 +65,16 @@ if __name__ == "__main__":
     print("The precision on the test set is", prec)
     recall = recall(y,test_df, 'quality')
     print("The recall on the test set is", recall)
+
+    #
+    #
+    #
+    #
+    # RUNNING LOGISTIC REGRESSION ON BREAST CANCER DATA
+    #
+    #
+    #
+    #
 
     print("running logistic regression on breast cancer data:")
 
