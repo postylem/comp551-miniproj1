@@ -11,9 +11,9 @@ if __name__ == "__main__":
 
     wine_df = pd.read_csv("winequality-red.train.csv")
     k_folds = k_fold(wine_df, k)
-    features = ['pH', 'volatile acidity', 'citric acid', 'sulphates', 'alcohol']
+    features = ['density', 'volatile acidity', 'total sulfur dioxide','citric acid', 'sulphates', 'alcohol']
     learning_rate = 0.02
-    epochs = 700
+    epochs = 600
     stop_criterion = 0.1
 
     weight_list = []
