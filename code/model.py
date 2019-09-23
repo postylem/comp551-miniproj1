@@ -97,14 +97,37 @@ def error(predictions, dataframe, target):
     error = float(count)/len(real_y)
     return error
 
-def accuracy(predictions, csv_file_real_y, target):
-    df = pd.read_csv(csv_file_real_y)
-    real_y = init_y(df, target)
-    count = 0
-    for i in range(len(real_y)):
-        if real_y[i] == predictions[i]:
-            count+=1
-        else:
-            continue
-    accuracy = float(count)/len(real_y)
-    return accuracy
+def count(predictions, true_values):
+    m = [0,0,0,0]
+    for i in range(len(true_values)):
+        if true_values[i] == predictions[i] and true_values[i] == 1:
+            m[0] +=1
+        if true_values[i] != predictions[i] and true_values[i] == 0:
+            m[1] +=1
+        if true_values[i] == predictions[i] and true_values[i] == 0:
+            m[2] +=1
+        if true_values[i] != predictions[i] and true_values[i] == 1:
+            m[3] +=1
+    return m    
+
+
+def accuracy(predictions, df, target):
+    true_y = init_y(df, target)
+    m = count(predictions, true_y)
+    acc = float((m[0]+m[2]))/(m[0]+m[1]+m[2]+m[3])
+    return acc
+
+def precision(predictions, df, target):
+    true_y = init_y(df, target)
+    m = count(predictions, true_y)
+    prec = float(m[0])/(m[0]+m[1])
+    return prec
+
+def recall(predictions, df, target):
+    true_y = init_y(df, target)
+    m = count(predictions, true_y)
+    rec = float((m[0]))/(m[0]+m[3])
+    return rec
+
+
+

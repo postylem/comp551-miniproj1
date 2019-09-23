@@ -49,9 +49,12 @@ if __name__ == "__main__":
 
     test_df = pd.read_csv("winequality-red.test.csv")
     y = predict(weights,test_df, features)
-    acc = accuracy(y,"winequality-red.test.csv", 'quality')
+    acc = accuracy(y,test_df, 'quality')
     print("The accuracy on the test set is", acc)
-
+    prec = precision(y,test_df, 'quality')
+    print("The precision on the test set is", prec)
+    recall = recall(y,test_df, 'quality')
+    print("The recall on the test set is", recall)
 
     print("running logistic regression on breast cancer data:")
 
@@ -85,8 +88,21 @@ if __name__ == "__main__":
 
     print("Mean error across folds: ", np.mean(error_list))
 
+    print("Now training model on the whole training set.")
 
+    X = init_x(bcw_df, features)
+    W_0 = init_weights(X)
+    Y = init_y(bcw_df,'Class')
+    weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
 
+    test_df = pd.read_csv("bcw-cleaned.test.csv")
+    y = predict(weights,test_df, features)
+    acc = accuracy(y,test_df, 'Class')
+    print("The accuracy on the test set is", acc)
+    prec = precision(y,test_df, 'Class')
+    print("The precision on the test set is", prec)
+    recall = recall(y,test_df, 'Class')
+    print("The recall on the test set is", recall)
 
 
     # df = pd.read_csv("test.csv", delimiter = ';')
