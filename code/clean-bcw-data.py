@@ -6,7 +6,7 @@ import sys
 
 def prepare_breast_cancer_data(source, bool_remove_rows):
     # custom data cleaning for breast cancer data
-    df = pd.read_csv(source,names=["Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shap","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses","Class"])
+    df = pd.read_csv(source,names=["Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses","Class"])
     print("total rows",df.shape[0])
     if bool_remove_rows:
         df = df[pd.to_numeric(df['Bare Nuclei'], errors='coerce').notnull()]

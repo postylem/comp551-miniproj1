@@ -42,9 +42,9 @@ if __name__ == "__main__":
 
     bcw_df = pd.read_csv("bcw-cleaned.train.csv")
     k_folds = k_fold(bcw_df, k)
-    features = ["Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shap","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli"]
+    features = ["Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"]
     learning_rate = 0.02
-    epochs = 400
+    epochs = 700
     stop_criterion = 0.0
 
     weight_list = []
