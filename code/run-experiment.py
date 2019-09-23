@@ -38,6 +38,21 @@ if __name__ == "__main__":
 
     print("Mean error across folds: ", np.mean(error_list))
 
+    # train model on all of the training set.
+
+    print("Now training model on the whole training set.")
+
+    X = init_x(wine_df, features)
+    W_0 = init_weights(X)
+    Y = init_y(wine_df,'quality')
+    weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
+
+    test_df = pd.read_csv("winequality-red.test.csv")
+    y = predict(weights,test_df, features)
+    acc = accuracy(y,"winequality-red.test.csv", 'quality')
+    print("The accuracy on the test set is", acc)
+
+
     print("running logistic regression on breast cancer data:")
 
     bcw_df = pd.read_csv("bcw-cleaned.train.csv")
