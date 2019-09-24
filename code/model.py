@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import math
 
 # here's a pass at implementing the logistic regression model
 
@@ -61,12 +62,20 @@ def update_weights(weights, observations, true_labels, learning_rate):
         return new_weights
     else: print("Error. Size mismatch.")
 
+def step_decay(iteration, lr):
+    # step decay for learning rate
+    step = 0.5
+    resolution = 5 # numer of interations per step
+    new_lr = lr * step ** math.floor((1+iteration)/resolution)
+    return new_lr
+
 def fit(weights, observations, true_labels, learning_rate,num_iterations, stop_criterion):
     #function of current weights (vector) and observations (array of vectors), true_labels (vector)
     #runs update_weight function num_iterations times, and stops if stop_criterion is reached
     last_weights = np.zeros_like(weights)
     for i in range(num_iterations):
-        weights = update_weights(weights, observations, true_labels, learning_rate)
+        stepped_lr = step_decay(i,learning_rate)
+        weights = update_weights(weights, observations, true_labels, stepped_lr)
         if  np.amax( np.absolute( np.subtract(weights,last_weights))) < stop_criterion: #if max(|weights-last_weights|)<stop_criterion
             print("Stop criterion reached:", np.subtract(weights,last_weights))
             return weights
@@ -108,7 +117,7 @@ def count(predictions, true_values):
             m[2] +=1
         if true_values[i] != predictions[i] and true_values[i] == 1:
             m[3] +=1
-    return m    
+    return m
 
 
 def accuracy(predictions, df, target):
@@ -128,6 +137,3 @@ def recall(predictions, df, target):
     m = count(predictions, true_y)
     rec = float(m[0])/(m[0]+m[3])
     return rec
-
-
-
