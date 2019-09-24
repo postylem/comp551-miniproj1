@@ -49,6 +49,13 @@ def predicted_probability(w, x):
     # passes weighted sum w.x through logistic function
     return sigma(np.dot(w, x))
 
+def L2_reg(lambda, weights):
+    w = 0
+    for i in range(len(weights)):
+        w += weights[i] ** 2
+    return lambda * w
+
+
 def update_weights(weights, observations, true_labels, learning_rate):
     # function of current weights (vector) and observations (array of vectors),
     # updates by one step of size learning_rate based on grad of cross entropy loss
