@@ -27,7 +27,7 @@ if __name__ == "__main__":
     # features = ['density', 'volatile acidity', 'total sulfur dioxide', 'sulphates', 'alcohol']
     # features = ['volatile acidity', 'total sulfur dioxide', 'sulphates', 'alcohol']
     learning_rate = 0.02
-    epochs = 600
+    epochs = 100
     stop_criterion = 0.1
 
     weight_list = []
@@ -89,37 +89,43 @@ if __name__ == "__main__":
     #
     #
 
-    # print("running logistic regression on breast cancer data:")
+    print("running logistic regression on breast cancer data:")
 
-    # bcw_df = pd.read_csv("bcw-cleaned.train.csv")
-    # k_folds = k_fold(bcw_df, k)
-    # # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
-    # features = ["Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli"]
-    # learning_rate = 0.01
-    # epochs = 700
-    # stop_criterion = 0.0
+    bcw_df = pd.read_csv("bcw-cleaned.csv")
+    k_folds = k_fold(bcw_df, k)
+    # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
+    features = ["Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli"]
+    learning_rate = 0.01
+    epochs = 100
+    stop_criterion = 0.1
 
-    # weight_list = []
-    # prediction_list = []
-    # error_list = []
+    weight_list = []
+    prediction_list = []
+    error_list = []
 
-    # for i in range(0,2*k,2):
-    #     dataf = k_folds[i]
-    #     X = init_x(dataf, features)
-    #     W_0 = init_weights(X)
-    #     Y = init_y(dataf,'Class')
-    #     weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
-    #     weight_list.append(weights)
+    for i in range(0,2*k,2):
+        dataf = k_folds[i]
+        X = init_x(dataf, features)
+        W_0 = init_weights(X)
+        Y = init_y(dataf,'Class')
+        weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
+        weight_list.append(weights)
 
-    #     dataf = k_folds[i+1]
-    #     y = predict(weights,dataf, features)
-    #     prediction_list.append(y)
+        dataf = k_folds[i+1]
+        y = predict(weights,dataf, features)
+        prediction_list.append(y)
 
-    #     err = error(y, k_folds[i+1], 'Class')
-    #     print("Fold", int(i/2), "error:", err)
-    #     error_list.append(err)
+        err = error(y, k_folds[i+1], 'Class')
+        print("Fold", int(i/2), "error:", err)
+        error_list.append(err)
+        acc = accuracy(y,k_folds[i+1], 'Class')
+        print("Accuracy:", acc)
+        prec = precision(y,k_folds[i+1], 'Class')
+        print("Precision:", prec)
+        rec = recall(y,k_folds[i+1], 'Class')
+        print("Recall:", rec)
 
-    # print("Mean error across folds: ", np.mean(error_list))
+    print("Mean error across folds: ", np.mean(error_list))
 
     # print("Now training model on the whole training set.")
 
@@ -142,7 +148,7 @@ if __name__ == "__main__":
     # y = predict(weights,df, features)
     # print(y)
 
-    # acc = accuracy(y, "test.csv", 'quality')
+    # acc = accuracy(y, "bcw-cleaned.test.csv", 'Class')
     # print(acc)
 
     # testing LDA:

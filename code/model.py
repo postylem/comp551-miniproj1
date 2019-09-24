@@ -77,7 +77,7 @@ def fit(weights, observations, true_labels, learning_rate,num_iterations, stop_c
         stepped_lr = step_decay(i,learning_rate)
         weights = update_weights(weights, observations, true_labels, stepped_lr)
         if  np.amax( np.absolute( np.subtract(weights,last_weights))) < stop_criterion: #if max(|weights-last_weights|)<stop_criterion
-            print("Stop criterion reached:", np.subtract(weights,last_weights))
+            print("Stop criterion reached, number of iterations:", i)
             return weights
         last_weights = weights
     return weights

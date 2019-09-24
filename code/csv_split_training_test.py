@@ -11,6 +11,7 @@ def main(source, delimiter, percent):
     shuffled_df = df.reindex(np.random.permutation(df.index))
     total = shuffled_df.shape[0]
     fraction_training = int(percent)/100.0
+
     nb_training = int(total * fraction_training)
     training_set = shuffled_df.head(nb_training)
     test_set = shuffled_df.tail(total-nb_training)
