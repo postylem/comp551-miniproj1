@@ -114,7 +114,7 @@ def count(predictions, true_values):
 def accuracy(predictions, df, target):
     true_y = init_y(df, target)
     m = count(predictions, true_y)
-    acc = float((m[0]+m[2]))/(m[0]+m[1]+m[2]+m[3])
+    acc = float(m[0]+m[2])/(m[0]+m[1]+m[2]+m[3])
     return acc
 
 def precision(predictions, df, target):
@@ -126,7 +126,7 @@ def precision(predictions, df, target):
 def recall(predictions, df, target):
     true_y = init_y(df, target)
     m = count(predictions, true_y)
-    rec = float((m[0]))/(m[0]+m[3])
+    rec = float(m[0])/(m[0]+m[3])
     return rec
 
 
