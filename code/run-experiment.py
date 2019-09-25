@@ -66,7 +66,7 @@ if __name__ == "__main__":
 
     run_logreg_and_report(k_folds,features,"quality",learning_rate,epochs,stop_criterion)
 
-    
+
     print("--> running logistic regression on modified wine data:")
     wine_df = pd.read_csv("winequality-red-modified.csv", delimiter= ';')
     # wine_df = wine_df.reindex(np.random.permutation(wine_df.index))

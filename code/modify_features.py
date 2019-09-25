@@ -14,7 +14,11 @@ def new_csv():
     print(df)
 
     df['density2'] = df.density.apply(
-               lambda x: ((1 - x) ** 2))
+               lambda x: (1e5*(1 - x) ** 2))
+    df['density3'] = df.density.apply(
+               lambda x: (1e7*(1 - x) ** 3))
+    df['density4'] = df.density.apply(
+               lambda x: (1e9*(1 - x) ** 4))
     #
     # df['quality'] = df.quality.apply(
     #            lambda x: (1 if x>5 else 0))
