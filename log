@@ -1,0 +1,99 @@
+--> running logistic regression on wine data:
+['density', 'volatile acidity', 'total sulfur dioxide', 'citric acid', 'sulphates', 'alcohol']
+Stop criterion reached, number of iterations: 14
+Fold 0 error:           0.2727272727272727
+       accuracy:        0.7272727272727273
+       precision:       0.6666666666666666
+       recall:          0.9125
+Stop criterion reached, number of iterations: 15
+Fold 1 error:           0.340625
+       accuracy:        0.659375
+       precision:       0.6538461538461539
+       recall:          0.272
+Stop criterion reached, number of iterations: 12
+Fold 2 error:           0.271875
+       accuracy:        0.728125
+       precision:       0.7823834196891192
+       recall:          0.7704081632653061
+Stop criterion reached, number of iterations: 14
+Fold 3 error:           0.253125
+       accuracy:        0.746875
+       precision:       0.8723404255319149
+       recall:          0.543046357615894
+Stop criterion reached, number of iterations: 14
+Fold 4 error:           0.25
+       accuracy:        0.75
+       precision:       0.8454106280193237
+       recall:          0.7847533632286996
+
+Mean error across folds:     0.2776704545454545
+Mean accuracy across folds:  0.7223295454545454
+Mean precision across folds: 0.7641294587506356
+Mean recall across folds:    0.6565415768219799
+---
+--> running logistic regression on modified wine data:
+['density2', 'volatile acidity', 'total sulfur dioxide', 'citric acid', 'sulphates', 'alcohol']
+Stop criterion reached, number of iterations: 13
+Fold 0 error:           0.29153605015673983
+       accuracy:        0.7084639498432602
+       precision:       0.6488888888888888
+       recall:          0.9125
+Stop criterion reached, number of iterations: 14
+Fold 1 error:           0.315625
+       accuracy:        0.684375
+       precision:       0.6935483870967742
+       recall:          0.344
+Stop criterion reached, number of iterations: 12
+Fold 2 error:           0.284375
+       accuracy:        0.715625
+       precision:       0.7777777777777778
+       recall:          0.75
+Stop criterion reached, number of iterations: 13
+Fold 3 error:           0.24375
+       accuracy:        0.75625
+       precision:       0.8842105263157894
+       recall:          0.5562913907284768
+Stop criterion reached, number of iterations: 11
+Fold 4 error:           0.25
+       accuracy:        0.75
+       precision:       0.8356807511737089
+       recall:          0.7982062780269058
+
+Mean error across folds:     0.2770572100313479
+Mean accuracy across folds:  0.7229427899686521
+Mean precision across folds: 0.7680212662505879
+Mean recall across folds:    0.6721995337510766
+---
+--> running logistic regression on breast cancer data:
+['Sample code number', 'Clump Thickness', 'Uniformity of Cell Size', 'Uniformity of Cell Shape', 'Marginal Adhesion', 'Single Epithelial Cell Size', 'Bare Nuclei', 'Bland Chromatin', 'Normal Nucleoli']
+Stop criterion reached, number of iterations: 4
+Fold 0 error:           0.007352941176470588
+       accuracy:        0.9926470588235294
+       precision:       0.9722222222222222
+       recall:          1.0
+Stop criterion reached, number of iterations: 4
+Fold 1 error:           0.058394160583941604
+       accuracy:        0.9416058394160584
+       precision:       0.9649122807017544
+       recall:          0.9016393442622951
+Stop criterion reached, number of iterations: 4
+Fold 2 error:           0.051094890510948905
+       accuracy:        0.948905109489051
+       precision:       0.9264705882352942
+       recall:          0.9692307692307692
+Stop criterion reached, number of iterations: 4
+Fold 3 error:           0.0364963503649635
+       accuracy:        0.9635036496350365
+       precision:       0.9230769230769231
+       recall:          0.9795918367346939
+Stop criterion reached, number of iterations: 4
+Fold 4 error:           0.029411764705882353
+       accuracy:        0.9705882352941176
+       precision:       0.9310344827586207
+       recall:          0.9310344827586207
+
+Mean error across folds:     0.0365500214684414
+Mean accuracy across folds:  0.9634499785315587
+Mean precision across folds: 0.9435432993989631
+Mean recall across folds:    0.9562992865972758
+---
