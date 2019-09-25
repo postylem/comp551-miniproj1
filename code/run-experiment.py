@@ -3,23 +3,55 @@ from model import *
 from k_fold import *
 #from LDA import *
 
-if __name__ == "__main__":
+def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,stop_criterion):
+    #
+    weight_list = []
+    prediction_list = []
+    error_list = []
+    acc_list = []
+    prec_list = []
+    rec_list = []
 
-    #
-    #
-    #
-    #
-    # RUNNING LOGISTIC REGRESSION ON WINE DATASET
-    #
-    #
-    #
-    #
+    for i in range(0,2*k,2):
+        dataf = k_folds[i]
+        X = init_x(dataf, features)
+        W_0 = init_weights(X)
+        Y = init_y(dataf,target_label)
+        weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
+        weight_list.append(weights)
+
+        dataf = k_folds[i+1]
+        y = predict(weights,dataf, features)
+        prediction_list.append(y)
+
+        err = error(y, k_folds[i+1], target_label)
+        print("Fold", int(i/2), "error:", err)
+        error_list.append(err)
+        acc = accuracy(y,k_folds[i+1], target_label)
+        acc_list.append(acc)
+        print("       accuracy:       ", acc)
+        prec = precision(y,k_folds[i+1], target_label)
+        prec_list.append(prec)
+        print("       precision:      ", prec)
+        rec = recall(y,k_folds[i+1], target_label)
+        rec_list.append(rec)
+        print("       recall:         ", rec)
+
+
+    print("")
+    print("Mean error across folds:    ", np.mean(error_list))
+    print("Mean accuracy across folds: ", np.mean(acc_list))
+    print("Mean precision across folds:", np.mean(prec_list))
+    print("Mean recall across folds:   ", np.mean(rec_list))
+    print("---")
+
+
+if __name__ == "__main__":
 
     k=5
 
     print("running logistic regression on wine data:")
-
-    wine_df = pd.read_csv("winequality-red.csv", delimiter= ';')
+    wine_df = pd.read_csv("winequality-red-modified.csv", delimiter= ';')
     # wine_df = wine_df.reindex(np.random.permutation(wine_df.index))
     k_folds = k_fold(wine_df, k)
     features = ['density', 'volatile acidity', 'total sulfur dioxide','citric acid', 'sulphates', 'alcohol']
@@ -30,67 +62,11 @@ if __name__ == "__main__":
     epochs = 100
     stop_criterion = 0.1
 
-    weight_list = []
-    prediction_list = []
-    error_list = []
-
-    for i in range(0,2*k,2):
-        dataf = k_folds[i]
-        X = init_x(dataf, features)
-        W_0 = init_weights(X)
-        Y = init_y(dataf,'quality')
-        weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
-        weight_list.append(weights)
-
-        dataf = k_folds[i+1]
-        y = predict(weights,dataf, features)
-        prediction_list.append(y)
-
-        err = error(y, k_folds[i+1], 'quality')
-        print("")
-        print("Fold", int(i/2), "error:", err)
-        error_list.append(err)
-        acc = accuracy(y,k_folds[i+1], 'quality')
-        print("Accuracy:", acc)
-        prec = precision(y,k_folds[i+1], 'quality')
-        print("Precision:", prec)
-        rec = recall(y,k_folds[i+1], 'quality')
-        print("Recall:", rec)
+    run_logreg_and_report(k_folds,features,"quality",learning_rate,epochs,stop_criterion)
 
 
-
-    print("Mean error across folds: ", np.mean(error_list))
-
-    # train model on all of the training set.
-
-    # print("Now training model on the whole training set.")
-
-    # X = init_x(wine_df, features)
-    # W_0 = init_weights(X)
-    # Y = init_y(wine_df,'quality')
-    # weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
-
-    # test_df = pd.read_csv("winequality-red.test.csv")
-    # y = predict(weights,test_df, features)
-    # acc = accuracy(y,test_df, 'quality')
-    # print("The accuracy on the test set is", acc)
-    # prec = precision(y,test_df, 'quality')
-    # print("The precision on the test set is", prec)
-    # recall = recall(y,test_df, 'quality')
-    # print("The recall on the test set is", recall)
-
-    #
-    #
-    #
-    #
-    # RUNNING LOGISTIC REGRESSION ON BREAST CANCER DATA
-    #
-    #
-    #
-    #
 
     print("running logistic regression on breast cancer data:")
-
     bcw_df = pd.read_csv("bcw-cleaned.csv")
     k_folds = k_fold(bcw_df, k)
     # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
@@ -99,68 +75,8 @@ if __name__ == "__main__":
     epochs = 100
     stop_criterion = 0.1
 
-    weight_list = []
-    prediction_list = []
-    error_list = []
+    run_logreg_and_report(k_folds,features,"Class",learning_rate,epochs,stop_criterion)
 
-    for i in range(0,2*k,2):
-        dataf = k_folds[i]
-        X = init_x(dataf, features)
-        W_0 = init_weights(X)
-        Y = init_y(dataf,'Class')
-        weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
-        weight_list.append(weights)
-
-        dataf = k_folds[i+1]
-        y = predict(weights,dataf, features)
-        prediction_list.append(y)
-
-        err = error(y, k_folds[i+1], 'Class')
-        print("Fold", int(i/2), "error:", err)
-        error_list.append(err)
-        acc = accuracy(y,k_folds[i+1], 'Class')
-        print("Accuracy:", acc)
-        prec = precision(y,k_folds[i+1], 'Class')
-        print("Precision:", prec)
-        rec = recall(y,k_folds[i+1], 'Class')
-        print("Recall:", rec)
-
-    print("Mean error across folds: ", np.mean(error_list))
-
-    # print("Now training model on the whole training set.")
-
-    # X = init_x(bcw_df, features)
-    # W_0 = init_weights(X)
-    # Y = init_y(bcw_df,'Class')
-    # weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
-
-    # test_df = pd.read_csv("bcw-cleaned.test.csv")
-    # y = predict(weights,test_df, features)
-    # acc = accuracy(y,test_df, 'Class')
-    # print("The accuracy on the test set is", acc)
-    # prec = precision(y,test_df, 'Class')
-    # print("The precision on the test set is", prec)
-    # recall = recall(y,test_df, 'Class')
-    # print("The recall on the test set is", recall)
-
-
-    # df = pd.read_csv("test.csv", delimiter = ';')
-    # y = predict(weights,df, features)
-    # print(y)
-
-    # acc = accuracy(y, "bcw-cleaned.test.csv", 'Class')
-    # print(acc)
-
-    # testing LDA:
-    # data = np.array(
-    #     [[2,0,0,1],
-    #      [2,0,4,1],
-    #      [4,2,3,0],
-    #      [9,1,2,0],
-    #      [9,1,4,0],
-    #      [9,1,2,0],
-    #      [2,1,1,0]]
-    # )
 
 
     # predicted_odds = np.empty([np.size(data,0),1])

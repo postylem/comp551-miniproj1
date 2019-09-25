@@ -49,11 +49,11 @@ def predicted_probability(w, x):
     # passes weighted sum w.x through logistic function
     return sigma(np.dot(w, x))
 
-def L2_reg(lambda, weights):
+def L2_reg(lamb, weights):
     w = 0
     for i in range(len(weights)):
         w += weights[i] ** 2
-    return lambda * w
+    return lamb * w
 
 
 def update_weights(weights, observations, true_labels, learning_rate):
@@ -117,13 +117,13 @@ def count(predictions, true_values):
     m = [0,0,0,0]
     for i in range(len(true_values)):
         if true_values[i] == predictions[i] and true_values[i] == 1:
-            m[0] +=1
+            m[0] +=1 # True positives
         if true_values[i] != predictions[i] and true_values[i] == 0:
-            m[1] +=1
+            m[1] +=1 # False positives
         if true_values[i] == predictions[i] and true_values[i] == 0:
-            m[2] +=1
+            m[2] +=1 # True negatives
         if true_values[i] != predictions[i] and true_values[i] == 1:
-            m[3] +=1
+            m[3] +=1 # False negatives
     return m
 
 
@@ -136,11 +136,17 @@ def accuracy(predictions, df, target):
 def precision(predictions, df, target):
     true_y = init_y(df, target)
     m = count(predictions, true_y)
+    if m[0]==m[1]==0:
+        # print("No positives at all (true nor false). Precision undefined.")
+        return math.inf
     prec = float(m[0])/(m[0]+m[1])
     return prec
 
 def recall(predictions, df, target):
     true_y = init_y(df, target)
     m = count(predictions, true_y)
+    if m[0]==m[3]==0:
+        # print("No true positives nor false negatives. Recall undefined.")
+        return math.inf
     rec = float(m[0])/(m[0]+m[3])
     return rec
