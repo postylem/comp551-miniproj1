@@ -1,5 +1,7 @@
 import numpy as np
-from model import init_y
+#from model import init_y
+
+
 # takes in the training data in an array and output the "weights" 
 def fit(train_data):
     # takes in training data in an array, one row per observation,
@@ -26,7 +28,7 @@ def fit(train_data):
     # make the covariance matrix (note we want the covariance matrix over the _columns_ of train_data, hence the transpose)
     cov_matrix = np.cov(np.transpose(train_data[:,:-1]))
     inv_cov = np.linalg.inv(cov_matrix)
-    
+
     stats_logodds = [P_0, P_1, mean_0, mean_1, cov_matrix, inv_cov]
     return stats_logodds
 
@@ -39,16 +41,17 @@ def predict(train_data, probs_0, probs_1, mean_0, mean_1, cov_matrix, inv_cov):
             np.log(probs_1/probs_0)
             - 0.5 * np.dot(mean_1, np.dot(inv_cov, mean_1))
             + 0.5 * np.dot(mean_0, np.dot(inv_cov, mean_0))
-            + np.dot(train_data[data_point], np.dot(inv_cov, (mean_0 - mean_1))))
+            + np.dot(train_data[data_point], np.dot(inv_cov, (mean_1 - mean_0))))
         # takes in the log odd and classifies the datapoint to its respected 0 or 1 class - binary classification 
+       # print(log_odds)
         if (log_odds >= 0): 
             predicted_data.append(1)
         else: 
             predicted_data.append(0)
     return predicted_data
         
-def error(predictions, csv_file_real_y, target):
-        real_y = init_y(csv_file_real_y, target)
+def errorlda(predictions, real_y):
+        #real_y = init_y(csv_file_real_y, target)
         count = 0
         for i in range(len(real_y)):
             if real_y[i] == predictions[i]:
