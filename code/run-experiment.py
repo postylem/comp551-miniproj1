@@ -1,6 +1,7 @@
 import numpy as np
 from model import *
 from k_fold import *
+import time
 #from LDA import *
 
 def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,stop_criterion):
@@ -11,6 +12,7 @@ def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,sto
     acc_list = []
     prec_list = []
     rec_list = []
+    run_times = []
 
     print(features)
 
@@ -19,7 +21,13 @@ def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,sto
         X = init_x(dataf, features)
         W_0 = init_weights(X)
         Y = init_y(dataf,target_label)
+        start = time.time()
+
         weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
+
+        end = time.time()
+
+        run_times.append(end-start)
         weight_list.append(weights)
 
         dataf = k_folds[i+1]
@@ -45,6 +53,7 @@ def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,sto
     print("Mean accuracy across folds: ", np.mean(acc_list))
     print("Mean precision across folds:", np.mean(prec_list))
     print("Mean recall across folds:   ", np.mean(rec_list))
+    print("Mean run time for fit function across folds:", np.mean(run_times), " seconds.")
     print("---")
 
 
