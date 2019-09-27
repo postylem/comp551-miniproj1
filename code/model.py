@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import math
+import time
 
 # here's a pass at implementing the logistic regression model
 
@@ -113,7 +114,8 @@ def error(predictions, dataframe, target):
     error = float(count)/len(real_y)
     return error
 
-def count(predictions, true_values):
+def count(predictions, df, target):
+    true_values = init_y(df, target)
     m = [0,0,0,0]
     for i in range(len(true_values)):
         if true_values[i] == predictions[i] and true_values[i] == 1:
@@ -128,14 +130,12 @@ def count(predictions, true_values):
 
 
 def accuracy(predictions, df, target):
-    true_y = init_y(df, target)
-    m = count(predictions, true_y)
+    m = count(predictions, df, target)
     acc = float(m[0]+m[2])/(m[0]+m[1]+m[2]+m[3])
     return acc
 
 def precision(predictions, df, target):
-    true_y = init_y(df, target)
-    m = count(predictions, true_y)
+    m = count(predictions, df, target)
     if m[0]==m[1]==0:
         # print("No positives at all (true nor false). Precision undefined.")
         return math.inf
@@ -143,8 +143,7 @@ def precision(predictions, df, target):
     return prec
 
 def recall(predictions, df, target):
-    true_y = init_y(df, target)
-    m = count(predictions, true_y)
+    m = count(predictions, df, target)
     if m[0]==m[3]==0:
         # print("No true positives nor false negatives. Recall undefined.")
         return math.inf
