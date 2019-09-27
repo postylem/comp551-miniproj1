@@ -13,6 +13,7 @@ def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,sto
     prec_list = []
     rec_list = []
     run_times = []
+    class_outputs = []
 
     print(features)
 
@@ -46,9 +47,14 @@ def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,sto
         rec = recall(y,k_folds[i+1], target_label)
         rec_list.append(rec)
         print("       recall:         ", rec)
+        class_outputs.append(count(y,k_folds[i+1], target_label))
 
-
+    m = class_outputs[0]
+    for i in range(1,5):
+        m = np.add(m, class_outputs[i])
+    m = m/5
     print("")
+    print("True positives:", m[0], " False positives:", m[1], " True negatives:", m[2], " False negatives:", m[3])
     print("Mean error across folds:    ", np.mean(error_list))
     print("Mean accuracy across folds: ", np.mean(acc_list))
     print("Mean precision across folds:", np.mean(prec_list))
