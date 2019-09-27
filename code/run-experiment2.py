@@ -1,7 +1,7 @@
 import numpy as np
 from LDA import fit, predict, errorlda
 import pandas as pd
-from model import error, accuracy, precision, recall, init_y
+from model import error, accuracy, precision, recall, init_y, count
 from k_fold import *
 import time
 #from LDA2 import accuracy
@@ -14,6 +14,7 @@ def run_LDA_and_report(k_folds, features, target_label):
     prec_list = []
     rec_list = []
     run_times = []
+    class_outputs = []
     for i in range(0,2*k,2):
         dataf = k_folds[i]
         if (dataf.columns[-1] == "quality"):
@@ -50,11 +51,14 @@ def run_LDA_and_report(k_folds, features, target_label):
         rec_list.append(rec)
         print("       recall:         ", rec)
         run_times.append(end-start)
+        class_outputs.append(count(y,k_folds[i+1], target_label))
 
-
-
-
+    m = class_outputs[0]
+    for i in range(1,5):
+        m = np.add(m, class_outputs[i])
+    m = m/5
     print("")
+    print("True positives:", m[0], " False positives:", m[1], " True negatives:", m[2], " False negatives:", m[3])
     print("Mean error across folds:    ", np.mean(error_list))
     print("Mean accuracy across folds: ", np.mean(acc_list))
     print("Mean precision across folds:", np.mean(prec_list))
