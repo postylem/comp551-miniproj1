@@ -92,7 +92,7 @@ if __name__ == "__main__":
 
 
 
-    print("--> running logistic regression on breast cancer data:")
+    print("--> running logistic regression on breast cancer data with bad data rows removed:")
     bcw_df = pd.read_csv("bcw-cleaned.csv")
     k_folds = k_fold(bcw_df, k)
     # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
@@ -103,7 +103,16 @@ if __name__ == "__main__":
 
     run_logreg_and_report(k_folds,features,"Class",learning_rate,epochs,stop_criterion)
 
+    # print("--> running logistic regression on breast cancer data replaced with column average:")
+    # bcw_df = pd.read_csv("bcw-averaged.csv")
+    # k_folds = k_fold(bcw_df, k)
+    # # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
+    # features = ["Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli"]
+    # learning_rate = 0.01
+    # epochs = 100
+    # stop_criterion = 0.1
 
+    run_logreg_and_report(k_folds,features,"Class",learning_rate,epochs,stop_criterion)
 
     # predicted_odds = np.empty([np.size(data,0),1])
     # for i in range(np.size(data,0)):
