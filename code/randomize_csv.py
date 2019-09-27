@@ -12,7 +12,7 @@ def main(source, delimiter):
 
     # output delimiter will always be ',' the standard
     source_path = os.path.splitext(source)[0]
-    df.to_csv(source_path+'.randomized.csv', index=False)
+    shuffled_df.to_csv(source_path+'.randomized.csv', index=False)
 
 if __name__ == "__main__":
 
