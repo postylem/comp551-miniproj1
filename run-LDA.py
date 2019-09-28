@@ -75,6 +75,9 @@ if __name__ == "__main__":
 
     k=5
 
+    ################################################
+    ### OPTIMAL ACCURACY ON WINE QUALITY DATASET ###
+    ################################################
 
     print("--------------------- running LDA on the breast cancer dataset ----------------")
     # bcw_df = pd.read_csv("data/bcw-cleaned.randomized.csv")
@@ -83,6 +86,10 @@ if __name__ == "__main__":
      # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
     features = ["Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli", "Class"]
     run_LDA_and_report(k_folds, features,"Class")
+
+    #################################################
+    ### OPTIMAL ACCURACY ON BREAST CANCER DATASET ###
+    #################################################
 
     print("---------------- running  LDA on wine data: -----------------")
     wine_df = pd.read_csv("data/winequality-red.randomized-modified.csv", delimiter= ',')
