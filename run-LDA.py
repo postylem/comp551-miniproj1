@@ -53,7 +53,7 @@ def run_LDA_and_report(k_folds, features, target_label):
         print("       recall:         ", rec)
         run_times.append(end-start)
         class_outputs.append(count(y, validation_df, target_label))
-        print(class_outputs[int(i/2)])
+        print("[TP, FP, TN, FN] = ",class_outputs[int(i/2)])
 
 
     m = class_outputs[0]
@@ -61,7 +61,7 @@ def run_LDA_and_report(k_folds, features, target_label):
         m = np.add(m, class_outputs[i])
     m = m/5
     print("")
-    print("Avg TP:", m[0], " FP:", m[1], " TN:", m[2], "FN:", m[3])
+    print("Average TP:", m[0], " FP:", m[1], " TN:", m[2], "FN:", m[3])
 
     print("Mean error across folds:    ", np.mean(error_list))
     print("Mean accuracy across folds: ", np.mean(acc_list))
@@ -77,14 +77,14 @@ if __name__ == "__main__":
 
 
     print("--------------------- running LDA on the breast cancer dataset ----------------")
-    bcw_df = pd.read_csv("bcw-cleaned.randomized.csv")
+    bcw_df = pd.read_csv("data/bcw-cleaned.randomized.csv")
     k_folds = k_fold(bcw_df, k)
      # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
     features = ["Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli", "Class"]
     run_LDA_and_report(k_folds, features,"Class")
 
     print("---------------- running  LDA on wine data: -----------------")
-    wine_df = pd.read_csv("winequality-red.randomized.csv", delimiter= ',')
+    wine_df = pd.read_csv("data/winequality-red.randomized.csv", delimiter= ',')
     # wine_df = wine_df.reindex(np.random.permutation(wine_df.index))
     k_folds = k_fold(wine_df, k)
     features = ['density', 'volatile acidity', 'total sulfur dioxide','citric acid', 'sulphates', 'alcohol', 'quality']
