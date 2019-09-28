@@ -1,8 +1,8 @@
 import numpy as np
 from LDA import fit, predict
 import pandas as pd
-from model import error, accuracy, precision, recall, count
 from k_fold import *
+from functions import *
 import time
 #from LDA2 import accuracy
 

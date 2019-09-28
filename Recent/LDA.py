@@ -1,5 +1,5 @@
 import numpy as np
-#from model import init_y
+from functions import *
 
 
 # takes in the training data in an array and output the "weights"
