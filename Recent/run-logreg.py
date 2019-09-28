@@ -68,7 +68,7 @@ if __name__ == "__main__":
     k=5
 
     print("--> running logistic regression on wine data:")
-    wine_df = pd.read_csv("winequality-red.randomized.csv", delimiter= ',')
+    wine_df = pd.read_csv("winequality-red.randomized.csv")
     # wine_df = wine_df.reindex(np.random.permutation(wine_df.index))
     k_folds = k_fold(wine_df, k)
     features = ['density', 'volatile acidity', 'total sulfur dioxide','citric acid', 'sulphates', 'alcohol']
@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
 
     print("--> running logistic regression on modified wine data:")
-    wine_df = pd.read_csv("winequality-red-modified.csv", delimiter= ';')
+    wine_df = pd.read_csv("winequality-red.randomized-modified.csv")
     # wine_df = wine_df.reindex(np.random.permutation(wine_df.index))
     k_folds = k_fold(wine_df, k)
     features = ['density2', 'volatile acidity', 'total sulfur dioxide','citric acid', 'sulphates', 'alcohol']
