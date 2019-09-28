@@ -77,6 +77,7 @@ if __name__ == "__main__":
 
 
     print("--------------------- running LDA on the breast cancer dataset ----------------")
+    # bcw_df = pd.read_csv("data/bcw-cleaned.randomized.csv")
     bcw_df = pd.read_csv("data/bcw-cleaned.randomized.csv")
     k_folds = k_fold(bcw_df, k)
      # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
@@ -84,7 +85,8 @@ if __name__ == "__main__":
     run_LDA_and_report(k_folds, features,"Class")
 
     print("---------------- running  LDA on wine data: -----------------")
-    wine_df = pd.read_csv("data/winequality-red.randomized.csv", delimiter= ',')
+    wine_df = pd.read_csv("data/winequality-red.randomized-modified.csv", delimiter= ',')
+    # wine_df = pd.read_csv("data/winequality-red.randomized.csv", delimiter= ',')
     # wine_df = wine_df.reindex(np.random.permutation(wine_df.index))
     k_folds = k_fold(wine_df, k)
     features = ['density', 'volatile acidity', 'total sulfur dioxide','citric acid', 'sulphates', 'alcohol', 'quality']

@@ -4,7 +4,7 @@ from k_fold import *
 import time
 from functions import *
 
-def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,stop_criterion):
+def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,stop_criterion,decision_tresh):
     # running and reporting on the logistic regression model
     weight_list = []
     prediction_list = []
@@ -32,7 +32,7 @@ def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,sto
         weight_list.append(weights)
 
         validationfold_df = k_folds[i+1]
-        y = predict(weights,validationfold_df, features)
+        y = predict(weights,validationfold_df, features, decision_tresh)
         prediction_list.append(y)
 
         err = error(y, validationfold_df, target_label)
@@ -68,6 +68,10 @@ if __name__ == "__main__":
 
     k=5
 
+    ##########################################################
+    ### ACCURACY ON ORIGINAL WINE QUALITY DATASET FEATURES ###
+    ##########################################################
+
     print("--> running logistic regression on wine data:")
     wine_df = pd.read_csv("data/winequality-red.randomized.csv")
     # wine_df = wine_df.reindex(np.random.permutation(wine_df.index))
@@ -79,9 +83,14 @@ if __name__ == "__main__":
     learning_rate = 0.02
     epochs = 100
     stop_criterion = 0.1
+    decision_tresh = 0.5
 
-    run_logreg_and_report(k_folds,features,"quality",learning_rate,epochs,stop_criterion)
+    run_logreg_and_report(k_folds,features,"quality",learning_rate,epochs,stop_criterion,decision_tresh)
 
+
+    ################################################
+    ### OPTIMAL ACCURACY ON WINE QUALITY DATASET ###
+    ################################################
 
     print("--> running logistic regression on wine data modified (density^2 feature added):")
     wine_df = pd.read_csv("data/winequality-red.randomized-modified.csv")
@@ -94,11 +103,14 @@ if __name__ == "__main__":
     learning_rate = 0.02
     epochs = 100
     stop_criterion = 0.1
+    decision_tresh = 0.5
 
-    run_logreg_and_report(k_folds,features,"quality",learning_rate,epochs,stop_criterion)
+    run_logreg_and_report(k_folds,features,"quality",learning_rate,epochs,stop_criterion,decision_tresh)
 
 
-
+    #################################################
+    ### OPTIMAL ACCURACY ON BREAST CANCER DATASET ###
+    #################################################
     print("--> running logistic regression on breast cancer data:")
     bcw_df = pd.read_csv("data/bcw-cleaned.randomized.csv")
     k_folds = k_fold(bcw_df, k)
@@ -108,12 +120,26 @@ if __name__ == "__main__":
     learning_rate = 0.01
     epochs = 100
     stop_criterion = 0.1
+    decision_tresh = 0.5
 
-    run_logreg_and_report(k_folds,features,"Class",learning_rate,epochs,stop_criterion)
+    run_logreg_and_report(k_folds,features,"Class",learning_rate,epochs,stop_criterion,decision_tresh)
+
+
+    ###############################################
+    ### OPTIMAL RECALL ON BREAST CANCER DATASET ###
+    ###############################################
+    print("--> running logistic regression on breast cancer data:")
+    bcw_df = pd.read_csv("data/bcw-cleaned.randomized.csv")
+    k_folds = k_fold(bcw_df, k)
+    # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
+    #features = ["Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli"]
+    features = ["Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"]
+    learning_rate = 0.01
+    epochs = 100
+    stop_criterion = 0.1
+    decision_tresh = 0.15
+
+    run_logreg_and_report(k_folds,features,"Class",learning_rate,epochs,stop_criterion,decision_tresh)
 
 
 
-    # predicted_odds = np.empty([np.size(data,0),1])
-    # for i in range(np.size(data,0)):
-    #         predicted_odds[i] = predict_log_odds(train_data , data[i][:-1])
-    # print(predicted_odds)import numpy as np

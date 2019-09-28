@@ -54,14 +54,14 @@ def fit(weights, observations, true_labels, learning_rate,num_iterations, stop_c
         last_weights = weights
     return weights
 
-def predict(weights, df, list_predictors):
+def predict(weights, df, list_predictors,decision_tresh):
     #function of weights resulting from fit() and .csv file of features to be used as prediction
     predictors = init_x(df,list_predictors)
     predictions = []
     for i in range(len(predictors)):
         a = np.dot(predictors[i], weights) #compute a
         pred_prob = sigma(a) #compute probability
-        if pred_prob > 0.5:
+        if pred_prob > decision_tresh:
             predictions.append(1)
         else:
             predictions.append(0)
