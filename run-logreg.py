@@ -66,7 +66,7 @@ def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,sto
 
 if __name__ == "__main__":
 
-    k=5
+    k=5 #number of folds for cross-fold validation
 
     ##########################################################
     ### ACCURACY ON ORIGINAL WINE QUALITY DATASET FEATURES ###

@@ -73,7 +73,7 @@ def run_LDA_and_report(k_folds, features, target_label):
 
 if __name__ == "__main__":
 
-    k=5
+    k=5 #number of folds for cross-fold validation
 
     ################################################
     ### OPTIMAL ACCURACY ON WINE QUALITY DATASET ###
