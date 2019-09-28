@@ -18,10 +18,10 @@ def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,sto
     print(features)
 
     for i in range(0,2*k,2):
-        dataf = k_folds[i]
-        X = init_x(dataf, features)
+        trainingfold_df = k_folds[i]
+        X = init_x(trainingfold_df, features)
         W_0 = init_weights(X)
-        Y = init_y(dataf,target_label)
+        Y = init_y(trainingfold_df,target_label)
         start = time.time()
 
         weights = fit(W_0, X, Y, learning_rate, epochs, stop_criterion)
@@ -31,23 +31,23 @@ def run_logreg_and_report(k_folds,features,target_label,learning_rate,epochs,sto
         run_times.append(end-start)
         weight_list.append(weights)
 
-        dataf = k_folds[i+1]
-        y = predict(weights,dataf, features)
+        validationfold_df = k_folds[i+1]
+        y = predict(weights,validationfold_df, features)
         prediction_list.append(y)
 
-        err = error(y, k_folds[i+1], target_label)
-        print("Fold", int(i/2), "error:          ", err)
+        err = error(y, validationfold_df, target_label)
         error_list.append(err)
-        acc = accuracy(y,k_folds[i+1], target_label)
+        print("Fold", int(i/2), "error:          ", err)
+        acc = accuracy(y, validationfold_df, target_label)
         acc_list.append(acc)
         print("       accuracy:       ", acc)
-        prec = precision(y,k_folds[i+1], target_label)
+        prec = precision(y, validationfold_df, target_label)
         prec_list.append(prec)
         print("       precision:      ", prec)
-        rec = recall(y,k_folds[i+1], target_label)
+        rec = recall(y, validationfold_df, target_label)
         rec_list.append(rec)
         print("       recall:         ", rec)
-        class_outputs.append(count(y,k_folds[i+1], target_label))
+        class_outputs.append(count(y, validationfold_df, target_label))
 
     m = class_outputs[0]
     for i in range(1,5):

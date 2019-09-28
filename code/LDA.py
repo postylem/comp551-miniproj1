@@ -2,7 +2,7 @@ import numpy as np
 #from model import init_y
 
 
-# takes in the training data in an array and output the "weights" 
+# takes in the training data in an array and output the "weights"
 def fit(train_data):
     # takes in training data in an array, one row per observation,
     # with true labels being the last row of the data
@@ -29,34 +29,23 @@ def fit(train_data):
     cov_matrix = np.cov(np.transpose(train_data[:,:-1]))
     inv_cov = np.linalg.inv(cov_matrix)
 
-    stats_logodds = [P_0, P_1, mean_0, mean_1, cov_matrix, inv_cov]
+    stats_logodds = [P_0, P_1, mean_0, mean_1, inv_cov]
     return stats_logodds
 
- # now to compute the predicted log_odds array for all the data_points using the outputs from fit 
-def predict(train_data, probs_0, probs_1, mean_0, mean_1, cov_matrix, inv_cov):
+ # now to compute the predicted log_odds array for all the data_points using the outputs from fit
+def predict(train_data, probs_0, probs_1, mean_0, mean_1, inv_cov):
     predicted_data = []
-    # loop through all the feature data_points 
+    # loop through all the feature data_points
     for data_point in range(len(train_data)):
         log_odds = (
             np.log(probs_1/probs_0)
             - 0.5 * np.dot(mean_1, np.dot(inv_cov, mean_1))
             + 0.5 * np.dot(mean_0, np.dot(inv_cov, mean_0))
             + np.dot(train_data[data_point], np.dot(inv_cov, (mean_1 - mean_0))))
-        # takes in the log odd and classifies the datapoint to its respected 0 or 1 class - binary classification 
+        # takes in the log odd and classifies the datapoint to its respected 0 or 1 class - binary classification
        # print(log_odds)
-        if (log_odds >= 0): 
+        if (log_odds >= 0):
             predicted_data.append(1)
-        else: 
+        else:
             predicted_data.append(0)
     return predicted_data
-        
-def errorlda(predictions, real_y):
-        #real_y = init_y(csv_file_real_y, target)
-        count = 0
-        for i in range(len(real_y)):
-            if real_y[i] == predictions[i]:
-                count+=1
-            else:
-                continue
-        accuracy = float(count)/len(real_y)
-        return accuracy
