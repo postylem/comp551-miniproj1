@@ -33,7 +33,7 @@ def fit(train_data):
     return stats_logodds
 
  # now to compute the predicted log_odds array for all the data_points using the outputs from fit
-def predict(train_data, probs_0, probs_1, mean_0, mean_1, inv_cov):
+def predict(train_data, probs_0, probs_1, mean_0, mean_1, inv_cov, decision_tresh):
     predicted_data = []
     # loop through all the feature data_points
     for data_point in range(len(train_data)):
@@ -44,7 +44,7 @@ def predict(train_data, probs_0, probs_1, mean_0, mean_1, inv_cov):
             + np.dot(train_data[data_point], np.dot(inv_cov, (mean_1 - mean_0))))
         # takes in the log odd and classifies the datapoint to its respected 0 or 1 class - binary classification
        # print(log_odds)
-        if (log_odds >= 0):
+        if (log_odds >= decision_tresh):
             predicted_data.append(1)
         else:
             predicted_data.append(0)
