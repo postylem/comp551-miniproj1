@@ -68,9 +68,9 @@ if __name__ == "__main__":
 
     k=5 #number of folds for cross-fold validation
 
-    ##########################################################
-    ### ACCURACY ON ORIGINAL WINE QUALITY DATASET FEATURES ###
-    ##########################################################
+    ############################################################
+    ### ACCURACY ON WINE QUALITY DATASET (ORIGINAL FEATURES) ###
+    ############################################################
 
     print("--> running logistic regression on wine data:")
     wine_df = pd.read_csv("data/winequality-red.randomized.csv")
