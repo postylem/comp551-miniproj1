@@ -83,6 +83,19 @@ if __name__ == "__main__":
     # bcw_df = pd.read_csv("data/bcw-cleaned.randomized.csv")
     bcw_df = pd.read_csv("data/bcw-cleaned.randomized.csv")
     k_folds = k_fold(bcw_df, k)
+    decision_tresh = 0
+     # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
+    features = ["Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli", "Class"]
+    run_LDA_and_report(k_folds, features,"Class",decision_tresh)
+
+    ################################################
+    ### OPTIMAL RECALL ON WINE QUALITY DATASET ###
+    ################################################
+
+    print("--------------------- running LDA on the breast cancer dataset ----------------")
+    # bcw_df = pd.read_csv("data/bcw-cleaned.randomized.csv")
+    bcw_df = pd.read_csv("data/bcw-cleaned.randomized.csv")
+    k_folds = k_fold(bcw_df, k)
     decision_tresh = -2
      # choose from  "Sample code number","Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli","Mitoses"
     features = ["Clump Thickness","Uniformity of Cell Size","Uniformity of Cell Shape","Marginal Adhesion","Single Epithelial Cell Size","Bare Nuclei","Bland Chromatin","Normal Nucleoli", "Class"]
